@@ -1,4 +1,4 @@
-package com.redmadrobot.tinkoff_news.ui.global;
+package com.redmadrobot.tinkoffnews.ui.global;
 
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;

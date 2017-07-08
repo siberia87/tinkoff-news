@@ -1,4 +1,4 @@
-package com.redmadrobot.tinkoff_news;
+package com.redmadrobot.tinkoffnews;
 
 import android.app.Application;
 

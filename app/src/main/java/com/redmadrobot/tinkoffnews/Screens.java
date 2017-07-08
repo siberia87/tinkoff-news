@@ -1,4 +1,4 @@
-package com.redmadrobot.tinkoff_news;
+package com.redmadrobot.tinkoffnews;
 
 /**
  * Created by s.salnikov on 08/07/17

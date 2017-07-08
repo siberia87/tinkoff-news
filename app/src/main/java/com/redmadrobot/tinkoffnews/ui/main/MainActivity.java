@@ -1,9 +1,9 @@
-package com.redmadrobot.tinkoff_news.ui.main;
+package com.redmadrobot.tinkoffnews.ui.main;
 
 import android.os.Bundle;
 
-import com.redmadrobot.tinkoff_news.R;
-import com.redmadrobot.tinkoff_news.ui.global.BaseActivity;
+import com.redmadrobot.tinkoffnews.R;
+import com.redmadrobot.tinkoffnews.ui.global.BaseActivity;
 
 class MainActivity extends BaseActivity {
 
