@@ -15,7 +15,7 @@ import com.arellomobile.mvp.MvpAppCompatFragment;
 abstract class BaseFragment extends MvpAppCompatFragment {
 
     @LayoutRes
-    protected abstract Integer getLayoutId();
+    protected abstract int getLayoutId();
 
     @Nullable
     @Override

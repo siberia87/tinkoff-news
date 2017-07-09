@@ -6,9 +6,9 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import ru.terrakok.cicerone.BaseRouter;
 import ru.terrakok.cicerone.Cicerone;
 import ru.terrakok.cicerone.NavigatorHolder;
+import ru.terrakok.cicerone.Router;
 
 /**
  * Created by s.salnikov on 08/07/17
@@ -17,7 +17,7 @@ import ru.terrakok.cicerone.NavigatorHolder;
 public class AppModule {
 
     private final Context mContext;
-    private final Cicerone mCicerone = Cicerone.create();
+    private final Cicerone<Router> mCicerone = Cicerone.create();
 
     public AppModule(final Context context) {
         mContext = context;
@@ -30,7 +30,7 @@ public class AppModule {
 
     @Singleton
     @Provides
-    BaseRouter provideRouter() {
+    Router provideRouter() {
         return mCicerone.getRouter();
     }
 

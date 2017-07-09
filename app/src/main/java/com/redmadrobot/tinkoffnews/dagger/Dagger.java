@@ -17,7 +17,7 @@ public class Dagger {
         mContext = context;
     }
 
-    AppComponent getAppComponent() {
+    public AppComponent getAppComponent() {
         return DaggerAppComponent.builder()
                 .appModule(new AppModule(mContext))
                 .build();

@@ -11,7 +11,7 @@ import com.arellomobile.mvp.MvpAppCompatActivity;
 public abstract class BaseActivity extends MvpAppCompatActivity {
 
     @LayoutRes
-    protected abstract Integer getLayoutId();
+    protected abstract int getLayoutId();
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
