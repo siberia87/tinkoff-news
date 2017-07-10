@@ -1,12 +1,11 @@
 package com.redmadrobot.tinkoffnews.model.repository;
 
-import android.util.Log;
-
 import com.redmadrobot.tinkoffnews.entity.database.NewsCache;
 import com.redmadrobot.tinkoffnews.entity.server.News;
-import com.redmadrobot.tinkoffnews.entity.server.NewsResponse;
 import com.redmadrobot.tinkoffnews.model.data.ServerApi;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import co.uk.rushorm.core.RushObject;
@@ -31,7 +30,10 @@ public class NewsRepository {
                 .flatMap(
                         newsFromCache ->
                                 mServerApi.getNews()
-                                        .map(NewsResponse::getNewsList)
+                                        .map(response -> {
+                                            Collections.sort(response.getNewsList(), new PublicationDateComparator());
+                                            return response.getNewsList();
+                                        })
                                         .doOnSuccess(newsList -> {
                                             newsFromCache.forEach(RushObject::delete);
                                             for (News news : newsList) {
@@ -46,5 +48,19 @@ public class NewsRepository {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .dematerialize();
+    }
+
+    private static class PublicationDateComparator implements Comparator<News> {
+        @Override
+        public int compare(final News o1, final News o2) {
+            return compare(
+                    o1.getPublicationDate().getMilliseconds(),
+                    o2.getPublicationDate().getMilliseconds()
+            );
+        }
+
+        private static int compare(final long lhs, final long rhs) {
+            return lhs < rhs ? -1 : (lhs == rhs ? 0 : 1);
+        }
     }
 }
