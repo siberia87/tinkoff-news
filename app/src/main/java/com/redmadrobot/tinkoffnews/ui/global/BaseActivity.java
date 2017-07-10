@@ -16,6 +16,5 @@ public abstract class BaseActivity extends MvpAppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
-
     }
 }

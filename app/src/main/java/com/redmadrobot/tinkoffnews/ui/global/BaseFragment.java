@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 
+import butterknife.ButterKnife;
+
 /**
  * Created by s.salnikov on 08/07/17
  */
@@ -25,6 +27,12 @@ public abstract class BaseFragment extends MvpAppCompatFragment {
                              @Nullable final ViewGroup container,
                              @Nullable final Bundle savedInstanceState) {
         return inflater.inflate(getLayoutId(), container, false);
+    }
+
+    @Override
+    public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        ButterKnife.bind(this, view);
     }
 
     protected void showProgressDialog(Boolean progress) {

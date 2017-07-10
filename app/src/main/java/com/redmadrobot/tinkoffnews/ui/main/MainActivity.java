@@ -33,9 +33,7 @@ public class MainActivity extends BaseActivity implements LaunchView {
         return R.layout.activity_main;
     }
 
-    private Navigator mNavigator = new SupportAppNavigator(this,
-            getSupportFragmentManager(), R.id.mainContainer) {
-
+    private Navigator mNavigator = new SupportAppNavigator(this, getSupportFragmentManager(), R.id.mainContainer) {
         @Override
         public void applyCommand(final Command command) {
             if (command instanceof Forward) {

@@ -22,8 +22,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <meta-data android:name="Rush_debug" android:value="true" />
-        <meta-data android:name="Rush_log" android:value="true" />
     </application>
 
 </manifest>
