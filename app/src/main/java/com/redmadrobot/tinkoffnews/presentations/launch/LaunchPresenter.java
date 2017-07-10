@@ -2,6 +2,7 @@ package com.redmadrobot.tinkoffnews.presentations.launch;
 
 import com.arellomobile.mvp.MvpPresenter;
 import com.redmadrobot.tinkoffnews.App;
+import com.redmadrobot.tinkoffnews.Screens;
 
 import javax.inject.Inject;
 
@@ -22,5 +23,6 @@ public class LaunchPresenter extends MvpPresenter<LaunchView> {
     @Override
     protected void onFirstViewAttach() {
         super.onFirstViewAttach();
+        mRouter.newRootScreen(Screens.NEWS_SCREEN);
     }
 }

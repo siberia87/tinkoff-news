@@ -10,16 +10,16 @@ import com.redmadrobot.tinkoffnews.dagger.module.AppModule;
  * Created by s.salnikov on 08/07/17
  */
 public class Dagger {
-
-    private final Context mContext;
+    private final AppComponent mAppComponent;
 
     public Dagger(final Context context) {
-        mContext = context;
+        mAppComponent = DaggerAppComponent.builder()
+                .appModule(new AppModule(context))
+                .build();
+
     }
 
     public AppComponent getAppComponent() {
-        return DaggerAppComponent.builder()
-                .appModule(new AppModule(mContext))
-                .build();
+        return mAppComponent;
     }
 }

@@ -12,8 +12,7 @@ import com.arellomobile.mvp.MvpAppCompatFragment;
 /**
  * Created by s.salnikov on 08/07/17
  */
-abstract class BaseFragment extends MvpAppCompatFragment {
-
+public abstract class BaseFragment extends MvpAppCompatFragment {
     @LayoutRes
     protected abstract int getLayoutId();
 

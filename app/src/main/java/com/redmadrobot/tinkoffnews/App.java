@@ -4,18 +4,10 @@ import android.app.Application;
 
 import com.redmadrobot.tinkoffnews.dagger.Dagger;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import co.uk.rushorm.android.AndroidInitializeConfig;
-import co.uk.rushorm.core.Rush;
-import co.uk.rushorm.core.RushCore;
-
 /**
  * Created by s.salnikov on 08/07/17
  */
 public class App extends Application {
-
     private static App sInstance;
     private Dagger mDagger;
 

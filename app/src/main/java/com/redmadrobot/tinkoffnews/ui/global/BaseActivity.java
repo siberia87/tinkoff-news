@@ -9,7 +9,6 @@ import com.arellomobile.mvp.MvpAppCompatActivity;
  * Created by s.salnikov on 08/07/17
  */
 public abstract class BaseActivity extends MvpAppCompatActivity {
-
     @LayoutRes
     protected abstract int getLayoutId();
 
@@ -17,5 +16,6 @@ public abstract class BaseActivity extends MvpAppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
+
     }
 }

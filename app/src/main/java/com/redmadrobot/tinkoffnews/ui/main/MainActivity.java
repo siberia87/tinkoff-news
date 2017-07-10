@@ -3,23 +3,26 @@ package com.redmadrobot.tinkoffnews.ui.main;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.View;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.redmadrobot.tinkoffnews.App;
 import com.redmadrobot.tinkoffnews.R;
+import com.redmadrobot.tinkoffnews.Screens;
 import com.redmadrobot.tinkoffnews.presentations.launch.LaunchPresenter;
 import com.redmadrobot.tinkoffnews.presentations.launch.LaunchView;
 import com.redmadrobot.tinkoffnews.ui.global.BaseActivity;
+import com.redmadrobot.tinkoffnews.ui.news.NewsFragment;
 
 import javax.inject.Inject;
 
+import ru.terrakok.cicerone.Navigator;
 import ru.terrakok.cicerone.NavigatorHolder;
 import ru.terrakok.cicerone.android.SupportAppNavigator;
 import ru.terrakok.cicerone.commands.Command;
 import ru.terrakok.cicerone.commands.Forward;
 
 public class MainActivity extends BaseActivity implements LaunchView {
-
     @InjectPresenter
     LaunchPresenter mPresenter;
 
@@ -30,6 +33,41 @@ public class MainActivity extends BaseActivity implements LaunchView {
     protected int getLayoutId() {
         return R.layout.activity_main;
     }
+
+    private Navigator mNavigator = new SupportAppNavigator(this,
+            getSupportFragmentManager(), R.id.mainContainer) {
+
+        @Override
+        public void applyCommand(final Command command) {
+            if (command instanceof Forward) {
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .add(R.id.mainContainer, createFragment(
+                                ((Forward) command).getScreenKey(),
+                                ((Forward) command).getTransitionData())
+                        )
+                        .addToBackStack(((Forward) command).getScreenKey())
+                        .commit();
+            } else {
+                super.applyCommand(command);
+            }
+        }
+
+        @Override
+        protected Fragment createFragment(final String screenKey, final Object data) {
+            switch (screenKey) {
+                case Screens.NEWS_SCREEN:
+                    return new NewsFragment();
+                default:
+                    return new NewsFragment();
+            }
+        }
+
+        @Override
+        protected Intent createActivityIntent(final String screenKey, final Object data) {
+            return null;
+        }
+    };
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -48,32 +86,4 @@ public class MainActivity extends BaseActivity implements LaunchView {
         super.onPause();
         mNavigatorHolder.removeNavigator();
     }
-
-    private SupportAppNavigator mNavigator = new SupportAppNavigator(this, R.id.mainContainer) {
-
-        @Override
-        public void applyCommand(final Command command) {
-            super.applyCommand(command);
-            if (command instanceof Forward) {
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .add(R.id.mainContainer, createFragment(
-                                ((Forward) command).getScreenKey(),
-                                ((Forward) command).getTransitionData())
-                        )
-                        .addToBackStack(((Forward) command).getScreenKey())
-                        .commit();
-            }
-        }
-
-        @Override
-        protected Fragment createFragment(final String screenKey, final Object data) {
-            return null;
-        }
-
-        @Override
-        protected Intent createActivityIntent(final String screenKey, final Object data) {
-            return null;
-        }
-    };
 }
