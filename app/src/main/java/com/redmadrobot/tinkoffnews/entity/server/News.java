@@ -6,18 +6,18 @@ import com.google.gson.annotations.SerializedName;
  * Created by s.salnikov on 09/07/17
  */
 public class News {
-    @SerializedName("mId")
-    private Long mId;
-    @SerializedName("mName")
+    @SerializedName("id")
+    private String mId;
+    @SerializedName("name")
     private String mName;
-    @SerializedName("mText")
+    @SerializedName("text")
     private String mText;
-    @SerializedName("mPublicationDate")
+    @SerializedName("publicationDate")
     private PublicationDate mPublicationDate;
-    @SerializedName("mBankInfoTypeId")
+    @SerializedName("bankInfoTypeId")
     private int mBankInfoTypeId;
 
-    public News(final Long id,
+    public News(final String id,
                 final String name,
                 final String text,
                 final PublicationDate publicationDate,
@@ -29,7 +29,7 @@ public class News {
         mBankInfoTypeId = bankInfoTypeId;
     }
 
-    public Long getId() {
+    public String getId() {
         return mId;
     }
 

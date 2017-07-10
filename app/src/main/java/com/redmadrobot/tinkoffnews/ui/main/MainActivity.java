@@ -3,7 +3,6 @@ package com.redmadrobot.tinkoffnews.ui.main;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.View;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.redmadrobot.tinkoffnews.App;

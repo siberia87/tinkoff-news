@@ -7,7 +7,7 @@ import com.redmadrobot.tinkoffnews.entity.database.PublicationDateCache;
  * Created by s.salnikov on 09/07/17
  */
 public class PublicationDate {
-    @SerializedName("mMilliseconds")
+    @SerializedName("milliseconds")
     private Long mMilliseconds;
 
     public PublicationDate(final PublicationDateCache publicationDateCache) {

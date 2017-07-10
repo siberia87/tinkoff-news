@@ -8,13 +8,13 @@ import java.util.List;
  * Created by s.salnikov on 09/07/17
  */
 public class NewsResponse {
-    @SerializedName("mResultCode")
+    @SerializedName("resultCode")
     private String mResultCode;
 
     @SerializedName("payload")
     List<News> mNewsList;
 
-    @SerializedName("mTrackingId")
+    @SerializedName("trackingId")
     String mTrackingId;
 
     public String getResultCode() {

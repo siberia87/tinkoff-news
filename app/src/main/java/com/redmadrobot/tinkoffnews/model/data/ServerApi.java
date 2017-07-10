@@ -2,6 +2,7 @@ package com.redmadrobot.tinkoffnews.model.data;
 
 import com.redmadrobot.tinkoffnews.entity.server.NewsResponse;
 
+import io.reactivex.Observable;
 import io.reactivex.Single;
 import retrofit2.http.GET;
 

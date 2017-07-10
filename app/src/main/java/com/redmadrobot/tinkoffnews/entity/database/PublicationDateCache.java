@@ -8,7 +8,11 @@ import co.uk.rushorm.core.RushObject;
  * Created by s.salnikov on 10/07/17
  */
 public class PublicationDateCache extends RushObject {
-    private final Long mMilliseconds;
+    private Long mMilliseconds;
+
+    public PublicationDateCache() {
+        super();
+    }
 
     public PublicationDateCache(final PublicationDate publicationDate) {
         mMilliseconds = publicationDate.getMilliseconds();

@@ -2,9 +2,6 @@ package com.redmadrobot.tinkoffnews.dagger.module;
 
 import android.content.Context;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -30,14 +27,6 @@ public class AppModule {
     @Singleton
     Context provideContext() {
         return mContext;
-    }
-
-    @Provides
-    @Singleton
-    Gson provideGson() {
-        return new GsonBuilder()
-                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-                .create();
     }
 
     @Singleton
