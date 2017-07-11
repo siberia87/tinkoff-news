@@ -23,20 +23,23 @@ public class NewsContentRepository {
 
     public Observable<NewsContent> getNewsContent(String newsId) {
         return Observable
-                .defer(() -> Observable.just(new RushSearch()
-                        .whereEqual("mId", newsId)
-                        .find(NewsContentCache.class)))
+                .defer(() -> {
+                    NewsContentCache newsContentCache = new RushSearch()
+                            .whereEqual("mId", newsId)
+                            .findSingle(NewsContentCache.class);
+                    return Observable.just(newsContentCache != null ? newsContentCache : new NewsContentCache());
+                })
                 .flatMap(
                         newsContentCaches ->
                                 mServerApi.getNewsContent(Integer.parseInt(newsId))
                                         .map(NewsContentResponse::getPayload)
                                         .doOnSuccess(newsContent -> {
-                                                    newsContentCaches.forEach(RushObject::delete);
+                                                    newsContentCaches.delete();
                                                     new NewsContentCache(newsContent).save();
                                                 }
                                         )
                                         .toObservable()
-                                        .startWith(NewsContentCache.map(newsContentCaches.size() == 0 ? new NewsContentCache() : newsContentCaches.get(0)))
+                                        .startWith(NewsContentCache.map(newsContentCaches))
                 )
                 .materialize() //magic of Rx: https://github.com/ReactiveX/RxJava/issues/2887
                 .subscribeOn(Schedulers.io())
