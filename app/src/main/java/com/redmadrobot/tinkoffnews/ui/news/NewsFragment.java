@@ -2,11 +2,9 @@ package com.redmadrobot.tinkoffnews.ui.news;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.redmadrobot.tinkoffnews.R;
@@ -29,12 +27,33 @@ public class NewsFragment extends BaseFragment implements NewsView {
     @BindView(R.id.newsRecyclerView)
     RecyclerView mNewsRecyclerView;
 
+    @BindView(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout mSwipeRefreshLayout;
+
     private NewsAdapter mNewsAdapter;
 
     @Override
     public void onActivityCreated(@Nullable final Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mNewsAdapter = new NewsAdapter();
+
+        initRecyclerView();
+        initSwipeRefreshLayout();
+    }
+
+    private void initSwipeRefreshLayout() {
+        mSwipeRefreshLayout.setOnRefreshListener(() -> {
+            mPresenter.onSwipePullToRefresh();
+        });
+        mSwipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+    }
+
+    private void initRecyclerView() {
+        mNewsAdapter = new NewsAdapter(news -> {
+            mPresenter.onNewsItemClicked(news);
+        });
         mNewsRecyclerView.setHasFixedSize(true);
         mNewsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mNewsRecyclerView.setAdapter(mNewsAdapter);
@@ -48,6 +67,16 @@ public class NewsFragment extends BaseFragment implements NewsView {
     @Override
     public void showNews(final List<News> newsList) {
         mNewsAdapter.setDate(newsList);
+    }
+
+    @Override
+    public void showRefreshing(final boolean state) {
+        mSwipeRefreshLayout.setRefreshing(state);
+    }
+
+    @Override
+    public void showError(final String message) {
+
     }
 
     @Override

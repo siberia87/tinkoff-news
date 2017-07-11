@@ -5,6 +5,7 @@ import com.redmadrobot.tinkoffnews.dagger.module.NetworkModule;
 import com.redmadrobot.tinkoffnews.dagger.module.NewsModule;
 import com.redmadrobot.tinkoffnews.presentations.launch.LaunchPresenter;
 import com.redmadrobot.tinkoffnews.presentations.news.NewsPresenter;
+import com.redmadrobot.tinkoffnews.presentations.newscontent.NewsContentPresenter;
 import com.redmadrobot.tinkoffnews.ui.main.MainActivity;
 
 import javax.inject.Singleton;
@@ -24,5 +25,6 @@ import ru.terrakok.cicerone.Router;
 public interface AppComponent {
     void inject(LaunchPresenter presenter);
     void inject(MainActivity activity);
-    void inject(NewsPresenter newsPresenter);
+    void inject(NewsPresenter presenter);
+    void inject(NewsContentPresenter presenter);
 }

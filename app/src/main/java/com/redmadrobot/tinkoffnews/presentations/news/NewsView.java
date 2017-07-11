@@ -2,6 +2,7 @@ package com.redmadrobot.tinkoffnews.presentations.news;
 
 import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
+import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 import com.redmadrobot.tinkoffnews.entity.server.News;
 
@@ -15,4 +16,9 @@ public interface NewsView extends MvpView {
     void showProgress(Boolean show);
 
     void showNews(List<News> newsList);
+
+    void showRefreshing(boolean state);
+
+    @StateStrategyType(OneExecutionStateStrategy.class)
+    void showError(String message);
 }

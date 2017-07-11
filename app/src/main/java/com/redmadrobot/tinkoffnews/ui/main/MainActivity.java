@@ -2,6 +2,7 @@ package com.redmadrobot.tinkoffnews.ui.main;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v4.app.Fragment;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -11,7 +12,9 @@ import com.redmadrobot.tinkoffnews.Screens;
 import com.redmadrobot.tinkoffnews.presentations.launch.LaunchPresenter;
 import com.redmadrobot.tinkoffnews.presentations.launch.LaunchView;
 import com.redmadrobot.tinkoffnews.ui.global.BaseActivity;
+import com.redmadrobot.tinkoffnews.ui.global.BaseFragment;
 import com.redmadrobot.tinkoffnews.ui.news.NewsFragment;
+import com.redmadrobot.tinkoffnews.ui.newscontent.NewsContentFragment;
 
 import javax.inject.Inject;
 
@@ -55,8 +58,10 @@ public class MainActivity extends BaseActivity implements LaunchView {
             switch (screenKey) {
                 case Screens.NEWS_SCREEN:
                     return new NewsFragment();
+                case Screens.NEWS_CONTENT_SCREEN:
+                    return NewsContentFragment.newInstance((String) data);
                 default:
-                    return new NewsFragment();
+                    return null;
             }
         }
 
@@ -83,4 +88,15 @@ public class MainActivity extends BaseActivity implements LaunchView {
         super.onPause();
         mNavigatorHolder.removeNavigator();
     }
+
+    @Override
+    public void onBackPressed() {
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.mainContainer);
+        if (fragment != null && fragment instanceof BaseFragment) {
+            ((BaseFragment) fragment).onBackPressed();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
 }

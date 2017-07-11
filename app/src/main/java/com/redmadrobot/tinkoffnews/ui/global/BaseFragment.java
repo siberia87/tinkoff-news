@@ -17,6 +17,7 @@ import butterknife.ButterKnife;
  */
 public abstract class BaseFragment extends MvpAppCompatFragment {
     private static final String PROGRESS_DIALOG_TAG = "progress_dialog_tag";
+    private static final String MESSAGE_DIALOG_TAG = "message_dialog";
 
     @LayoutRes
     protected abstract int getLayoutId();
@@ -44,5 +45,12 @@ public abstract class BaseFragment extends MvpAppCompatFragment {
             new ProgressDialog().show(getChildFragmentManager(), PROGRESS_DIALOG_TAG);
             getChildFragmentManager().executePendingTransactions();
         }
+    }
+
+    protected void showMessageDialog(String msg) {
+
+    }
+
+    public void onBackPressed() {
     }
 }

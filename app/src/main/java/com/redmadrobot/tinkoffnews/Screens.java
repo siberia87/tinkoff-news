@@ -5,5 +5,5 @@ package com.redmadrobot.tinkoffnews;
  */
 public class Screens {
     public static final String NEWS_SCREEN = "news_screen";
-    public static final String DETAIL_NEWS_SCREEN = "detail_new_screen";
+    public static final String NEWS_CONTENT_SCREEN = "news_content_screen";
 }

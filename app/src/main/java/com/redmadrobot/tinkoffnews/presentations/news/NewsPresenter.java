@@ -5,6 +5,8 @@ import android.util.Log;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.redmadrobot.tinkoffnews.App;
+import com.redmadrobot.tinkoffnews.Screens;
+import com.redmadrobot.tinkoffnews.entity.server.News;
 import com.redmadrobot.tinkoffnews.model.business.NewsInteractor;
 
 import javax.inject.Inject;
@@ -32,7 +34,12 @@ public class NewsPresenter extends MvpPresenter<NewsView> {
     @Override
     protected void onFirstViewAttach() {
         super.onFirstViewAttach();
+
         loadNews();
+    }
+
+    public void onSwipePullToRefresh() {
+        loadBySwipePullToRefresh();
     }
 
     private void loadNews() {
@@ -46,6 +53,22 @@ public class NewsPresenter extends MvpPresenter<NewsView> {
                         error -> {
                             Log.d("hui", error.getMessage());
                         });
+    }
+
+    private void loadBySwipePullToRefresh() {
+        mNewsInteractor.getNews()
+                .doOnNext(l -> getViewState().showRefreshing(false))
+                .subscribe(
+                        newsList -> {
+                            getViewState().showNews(newsList);
+                        },
+                        error -> {
+                            Log.d("hui", error.getMessage());
+                        });
+    }
+
+    public void onNewsItemClicked(final News news) {
+        mRouter.navigateTo(Screens.NEWS_CONTENT_SCREEN, news.getId());
     }
 
     @Override

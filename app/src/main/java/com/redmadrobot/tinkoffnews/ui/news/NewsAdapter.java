@@ -1,5 +1,6 @@
 package com.redmadrobot.tinkoffnews.ui.news;
 
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -19,14 +20,17 @@ import butterknife.BindView;
 /**
  * Created by s.salnikov on 10/07/17
  */
-public class NewsAdapter extends RecyclerView.Adapter<BaseViewHolder> {
+class NewsAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     private List<News> mDate;
+    private final IOnNewsItemClickListener mItemClickListener;
 
-    public NewsAdapter() {
+    NewsAdapter(final IOnNewsItemClickListener itemClickListener) {
         mDate = new ArrayList<>();
+        mItemClickListener = itemClickListener;
     }
 
-    public void setDate(final List<News> date) {
+    void setDate(final List<News> date) {
+        mDate.clear();
         mDate = date;
         notifyDataSetChanged();
     }
@@ -46,6 +50,7 @@ public class NewsAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     private void bindNewsViewHolder(final BaseViewHolder viewHolder, final News news) {
         NewsViewHolder newsViewHolder = (NewsViewHolder) viewHolder;
         newsViewHolder.mTextNews.setText(Html.fromHtml(news.getText()));
+        newsViewHolder.mNewsCardView.setOnClickListener(v -> mItemClickListener.onNewsItemClicked(news));
     }
 
     @Override
@@ -57,7 +62,10 @@ public class NewsAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @BindView(R.id.textNews)
         TextView mTextNews;
 
-        public NewsViewHolder(final View itemView) {
+        @BindView(R.id.newsCardView)
+        CardView mNewsCardView;
+
+        NewsViewHolder(final View itemView) {
             super(itemView);
         }
     }
