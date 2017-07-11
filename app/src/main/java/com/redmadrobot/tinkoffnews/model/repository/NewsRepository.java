@@ -27,21 +27,20 @@ public class NewsRepository {
     public Observable<List<News>> getNews() {
         return Observable
                 .defer(() -> Observable.just(new RushSearch().find(NewsCache.class)))
-                .flatMap(
-                        newsFromCache ->
-                                mServerApi.getNews()
-                                        .map(response -> {
-                                            Collections.sort(response.getNewsList(), new PublicationDateComparator());
-                                            return response.getNewsList();
-                                        })
-                                        .doOnSuccess(newsList -> {
-                                            newsFromCache.forEach(RushObject::delete);
-                                            for (News news : newsList) {
-                                                new NewsCache(news).save();
-                                            }
-                                        })
-                                        .toObservable()
-                                        .startWith(NewsCache.map(newsFromCache))
+                .flatMap(newsFromCache ->
+                        mServerApi.getNews()
+                                .map(response -> {
+                                    Collections.sort(response.getNewsList(), new PublicationDateComparator());
+                                    return response.getNewsList();
+                                })
+                                .doOnSuccess(newsList -> {
+                                    newsFromCache.forEach(RushObject::delete);
+                                    for (News news : newsList) {
+                                        new NewsCache(news).save();
+                                    }
+                                })
+                                .toObservable()
+                                .startWith(NewsCache.map(newsFromCache))
                 )
                 .filter(list -> !list.isEmpty())
                 .materialize() //magic of Rx: https://github.com/ReactiveX/RxJava/issues/2887

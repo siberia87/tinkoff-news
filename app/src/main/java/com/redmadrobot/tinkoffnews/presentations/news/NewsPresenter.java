@@ -44,27 +44,21 @@ public class NewsPresenter extends MvpPresenter<NewsView> {
 
     private void loadNews() {
         mNewsInteractor.getNews()
-                .doOnSubscribe(disposable -> getViewState().showProgress(true))
-                .doOnNext(l -> getViewState().showProgress(false))
+                .doOnSubscribe(onSubscribe -> getViewState().showProgress(true))
+                .doOnNext(onNext -> getViewState().showProgress(false))
                 .subscribe(
-                        newsList -> {
-                            getViewState().showNews(newsList);
-                        },
-                        error -> {
-                            Log.d("hui", error.getMessage());
-                        });
+                        newsList -> getViewState().showNews(newsList),
+                        error -> Log.d("hui", error.getMessage())
+                );
     }
 
     private void loadBySwipePullToRefresh() {
         mNewsInteractor.getNews()
-                .doOnNext(l -> getViewState().showRefreshing(false))
+                .doOnNext(onNext -> getViewState().showRefreshing(false))
                 .subscribe(
-                        newsList -> {
-                            getViewState().showNews(newsList);
-                        },
-                        error -> {
-                            Log.d("hui", error.getMessage());
-                        });
+                        newsList -> getViewState().showNews(newsList),
+                        error -> Log.d("hui", error.getMessage())
+                );
     }
 
     public void onNewsItemClicked(final News news) {

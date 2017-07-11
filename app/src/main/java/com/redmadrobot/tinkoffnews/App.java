@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.redmadrobot.tinkoffnews.dagger.Dagger;
 import com.redmadrobot.tinkoffnews.entity.database.NewsCache;
+import com.redmadrobot.tinkoffnews.entity.database.NewsContentCache;
 import com.redmadrobot.tinkoffnews.entity.database.PublicationDateCache;
 
 import java.util.ArrayList;
@@ -40,6 +41,7 @@ public class App extends Application {
         List<Class<? extends Rush>> classes = new ArrayList<>();
         classes.add(NewsCache.class);
         classes.add(PublicationDateCache.class);
+        classes.add(NewsContentCache.class);
 
         RushCore.initialize(new AndroidInitializeConfig(this, classes));
     }

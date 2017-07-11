@@ -1,12 +1,18 @@
 package com.redmadrobot.tinkoffnews.ui.newscontent;
 
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.redmadrobot.tinkoffnews.R;
+import com.redmadrobot.tinkoffnews.Utils;
+import com.redmadrobot.tinkoffnews.entity.server.NewsContent;
 import com.redmadrobot.tinkoffnews.presentations.newscontent.NewsContentPresenter;
 import com.redmadrobot.tinkoffnews.presentations.newscontent.NewsContentView;
 import com.redmadrobot.tinkoffnews.ui.global.BaseFragment;
+
+import butterknife.BindView;
 
 /**
  * Created by s.salnikov on 10/07/17
@@ -14,6 +20,14 @@ import com.redmadrobot.tinkoffnews.ui.global.BaseFragment;
 public class NewsContentFragment extends BaseFragment implements NewsContentView {
     @InjectPresenter
     NewsContentPresenter mPresenter;
+
+    @ProvidePresenter
+    NewsContentPresenter providePresenter() {
+        return new NewsContentPresenter(getArguments().getString(ARGS_PARAM_NEWS_ID));
+    }
+
+    @BindView(R.id.newsContent)
+    TextView mContentNewsTextView;
 
     @Override
     protected int getLayoutId() {
@@ -34,5 +48,15 @@ public class NewsContentFragment extends BaseFragment implements NewsContentView
     @Override
     public void onBackPressed() {
         mPresenter.onBackPressed();
+    }
+
+    @Override
+    public void showProgress(final Boolean show) {
+        showProgressDialog(show);
+    }
+
+    @Override
+    public void showNewsContent(final NewsContent newsContent) {
+        mContentNewsTextView.setText(Utils.fromHtml(newsContent.getContent()));
     }
 }

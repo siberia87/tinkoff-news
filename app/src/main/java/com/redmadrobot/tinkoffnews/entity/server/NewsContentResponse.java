@@ -11,5 +11,17 @@ public class NewsContentResponse {
     @SerializedName("payload")
     private NewsContent mPayload;
     @SerializedName("trackingId")
-    private int mTrackingId;
+    private String mTrackingId;
+
+    public String getResultCode() {
+        return mResultCode;
+    }
+
+    public NewsContent getPayload() {
+        return mPayload;
+    }
+
+    public String getTrackingId() {
+        return mTrackingId;
+    }
 }

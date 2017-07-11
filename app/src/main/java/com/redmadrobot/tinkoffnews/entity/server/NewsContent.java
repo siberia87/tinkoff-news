@@ -8,14 +8,18 @@ import com.google.gson.annotations.SerializedName;
 public class NewsContent {
     @SerializedName("title")
     private News mTitle;
-    @SerializedName("creationDate")
-    private PublicationDate mCreationDate;
-    @SerializedName("lastModificationDate")
-    private PublicationDate mLastModificationDate;
     @SerializedName("content")
     private String mContent;
-    @SerializedName("bankInfoTypeId")
-    private int mBankInfoTypeId;
-    @SerializedName("typeId")
-    private String mTypeId;
+
+    public NewsContent(final News title, final String content) {
+        mTitle = title;
+        mContent = content;
+    }
+    public News getTitle() {
+        return mTitle;
+    }
+
+    public String getContent() {
+        return mContent;
+    }
 }
