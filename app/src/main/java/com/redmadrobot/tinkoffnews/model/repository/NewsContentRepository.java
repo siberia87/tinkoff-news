@@ -41,6 +41,7 @@ public class NewsContentRepository {
                                         .toObservable()
                                         .startWith(NewsContentCache.map(newsContentCaches))
                 )
+                .filter(newsContent -> newsContent.getContent() != null)
                 .materialize() //magic of Rx: https://github.com/ReactiveX/RxJava/issues/2887
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
