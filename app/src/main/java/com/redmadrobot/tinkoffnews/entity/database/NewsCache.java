@@ -1,7 +1,7 @@
 package com.redmadrobot.tinkoffnews.entity.database;
 
 import com.redmadrobot.tinkoffnews.entity.server.News;
-import com.redmadrobot.tinkoffnews.entity.server.PublicationDate;
+import com.redmadrobot.tinkoffnews.entity.server.Date;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,7 @@ public class NewsCache extends RushObject {
     private String mId;
     private String mName;
     private String mText;
-    private PublicationDateCache mPublicationDateCache;
+    private DateCache mDateCache;
     private int mBankInfoTypeId;
 
     public NewsCache() {
@@ -26,7 +26,7 @@ public class NewsCache extends RushObject {
         mId = news.getId();
         mName = news.getName();
         mText = news.getText();
-        mPublicationDateCache = new PublicationDateCache(news.getPublicationDate());
+        mDateCache = new DateCache(news.getDate());
         mBankInfoTypeId = news.getBankInfoTypeId();
     }
 
@@ -35,7 +35,7 @@ public class NewsCache extends RushObject {
                 mId,
                 mName,
                 mText,
-                new PublicationDate(mPublicationDateCache),
+                new Date(mDateCache),
                 mBankInfoTypeId
         );
     }

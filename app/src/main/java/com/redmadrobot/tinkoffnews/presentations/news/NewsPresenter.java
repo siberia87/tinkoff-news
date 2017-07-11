@@ -11,7 +11,6 @@ import com.redmadrobot.tinkoffnews.model.business.NewsInteractor;
 
 import javax.inject.Inject;
 
-import io.reactivex.disposables.CompositeDisposable;
 import ru.terrakok.cicerone.Router;
 
 /**
@@ -19,16 +18,14 @@ import ru.terrakok.cicerone.Router;
  */
 @InjectViewState
 public class NewsPresenter extends MvpPresenter<NewsView> {
+    private static final String DEBUG_TAG = "news_presenter";
     @Inject
     Router mRouter;
     @Inject
     NewsInteractor mNewsInteractor;
 
-    private final CompositeDisposable mCompositeDisposable;
-
     public NewsPresenter() {
         App.getInstance().getDagger().getAppComponent().inject(this);
-        mCompositeDisposable = new CompositeDisposable();
     }
 
     @Override
@@ -48,7 +45,7 @@ public class NewsPresenter extends MvpPresenter<NewsView> {
                 .doOnNext(onNext -> getViewState().showProgress(false))
                 .subscribe(
                         newsList -> getViewState().showNews(newsList),
-                        error -> Log.d("hui", error.getMessage())
+                        error -> Log.d(DEBUG_TAG, error.getMessage())
                 );
     }
 
@@ -63,12 +60,5 @@ public class NewsPresenter extends MvpPresenter<NewsView> {
 
     public void onNewsItemClicked(final News news) {
         mRouter.navigateTo(Screens.NEWS_CONTENT_SCREEN, news.getId());
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-
-        mCompositeDisposable.dispose();
     }
 }

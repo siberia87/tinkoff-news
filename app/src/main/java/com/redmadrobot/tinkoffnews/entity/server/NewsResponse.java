@@ -6,6 +6,7 @@ import java.util.List;
 
 /**
  * Created by s.salnikov on 09/07/17
+ * Объект который приходит по запросу всех новостей https://api.tinkoff.ru/v1/news
  */
 public class NewsResponse {
     @SerializedName("resultCode")

@@ -13,19 +13,19 @@ public class News {
     @SerializedName("text")
     private String mText;
     @SerializedName("publicationDate")
-    private PublicationDate mPublicationDate;
+    private Date mDate;
     @SerializedName("bankInfoTypeId")
     private int mBankInfoTypeId;
 
     public News(final String id,
                 final String name,
                 final String text,
-                final PublicationDate publicationDate,
+                final Date date,
                 final int bankInfoTypeId) {
         mId = id;
         mName = name;
         mText = text;
-        mPublicationDate = publicationDate;
+        mDate = date;
         mBankInfoTypeId = bankInfoTypeId;
     }
 
@@ -41,8 +41,8 @@ public class News {
         return mText;
     }
 
-    public PublicationDate getPublicationDate() {
-        return mPublicationDate;
+    public Date getDate() {
+        return mDate;
     }
 
     public int getBankInfoTypeId() {

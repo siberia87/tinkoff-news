@@ -53,8 +53,8 @@ public class NewsRepository {
         @Override
         public int compare(final News o1, final News o2) {
             return compare(
-                    o1.getPublicationDate().getMilliseconds(),
-                    o2.getPublicationDate().getMilliseconds()
+                    o1.getDate().getMilliseconds(),
+                    o2.getDate().getMilliseconds()
             );
         }
 

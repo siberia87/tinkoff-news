@@ -16,14 +16,12 @@ import ru.terrakok.cicerone.Router;
  */
 @InjectViewState
 public class NewsContentPresenter extends MvpPresenter<NewsContentView> {
+    private static final String DEBUG_TAG = "news_content_presenter";
     @Inject
     Router mRouter;
-
     @Inject
     NewsContentInteractor mNewsContentInteractor;
-
     private final String mNewsId;
-
 
     public NewsContentPresenter(final String newsId) {
         App.getInstance().getDagger().getAppComponent().inject(this);
@@ -39,11 +37,14 @@ public class NewsContentPresenter extends MvpPresenter<NewsContentView> {
 
     private void loadNewsContent() {
         mNewsContentInteractor.getNewsContent(mNewsId)
-                .doOnSubscribe(onSubscribe -> getViewState().showProgress(false))
+                .doOnSubscribe(onSubscribe -> getViewState().showProgress(true))
                 .doOnNext(onNext -> getViewState().showProgress(false))
                 .subscribe(
                         newsContent -> getViewState().showNewsContent(newsContent),
-                        error -> Log.d("hui", error.getMessage())
+                        error -> {
+                            Log.d(DEBUG_TAG, error.getMessage());
+                            getViewState().showProgress(false);
+                        }
                 );
     }
 

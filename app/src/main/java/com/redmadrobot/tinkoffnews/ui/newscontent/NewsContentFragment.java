@@ -1,6 +1,8 @@
 package com.redmadrobot.tinkoffnews.ui.newscontent;
 
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
+import android.view.View;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -28,6 +30,9 @@ public class NewsContentFragment extends BaseFragment implements NewsContentView
 
     @BindView(R.id.newsContent)
     TextView mContentNewsTextView;
+
+    @BindView(R.id.newsContentCartView)
+    CardView mNewsContentCardView;
 
     @Override
     protected int getLayoutId() {
@@ -58,5 +63,11 @@ public class NewsContentFragment extends BaseFragment implements NewsContentView
     @Override
     public void showNewsContent(final NewsContent newsContent) {
         mContentNewsTextView.setText(Utils.fromHtml(newsContent.getContent()));
+
+//        if (newsContent.getContent() != null) {
+//            mContentNewsTextView.setText(Utils.fromHtml(newsContent.getContent()));
+//        } else {
+//            mNewsContentCardView.setVisibility(View.GONE);
+//        }
     }
 }
